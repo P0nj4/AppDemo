@@ -9,8 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "Product.h"
 
+@protocol ProductCellDelegate <NSObject>
+- (void)productCellDidChange:(NSInteger)quantity ForProduct:(Product *)product;
+
+@end
+
 @interface ProductCell : UITableViewCell
 @property (nonatomic, weak) Product *product;
+@property (nonatomic, weak) id<ProductCellDelegate> delegate;
 @property (weak, nonatomic) IBOutlet UIImageView *image;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *quantityLabel;

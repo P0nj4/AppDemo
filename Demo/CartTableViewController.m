@@ -11,13 +11,15 @@
 //entities
 #import "ProductManager.h"
 #import "Product.h"
+#import "Order.h"
 
 //custom views
 #import "LoadingView.h"
 #import "ProductCell.h"
 
-@interface CartTableViewController () <ProductManagerDelegate>
+@interface CartTableViewController () <ProductManagerDelegate, ProductCellDelegate>
 @property (nonatomic, strong) NSArray *listOfProducts;
+@property (nonatomic, strong) NSMutableDictionary *orders;
 @end
 
 @implementation CartTableViewController
@@ -82,6 +84,13 @@
         ((ProductCell *)cell).product.delegate = nil;
     }
     [((ProductCell *)cell) setProduct:prod];
+    Order *ordAux = [self.orders objectForKey:[NSNumber numberWithInteger:prod.identifier]];
+    if (ordAux) {
+        ((ProductCell *)cell).quantityTextField.text = [NSString stringWithFormat:@"%ld",(long) ordAux.quantity];
+    } else {
+        ((ProductCell *)cell).quantityTextField.text = @"0";
+    }
+    ((ProductCell *)cell).delegate = self;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -102,12 +111,40 @@
     [LoadingView loadingHideOnView:self.view animated:YES];
     self.listOfProducts = [[[ProductManager sharedInstance] allProducts] allValues];
     [self.tableView reloadData];
-    
 }
 
 #pragma mark - UIAlertViewDelegate
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     [[ProductManager sharedInstance] loadProductsWithDelegate:self];
+}
+
+#pragma mark - ProductCellDelegate
+- (void)productCellDidChange:(NSInteger)quantity ForProduct:(Product *)product{
+    if (!self.orders) {
+        self.orders = [[NSMutableDictionary alloc] init];
+    }
+    Order *orderAux;
+    orderAux = [self.orders objectForKey:[NSNumber numberWithInteger:product.identifier]];
+    if (!orderAux)
+        orderAux = [[Order alloc] init];
+    
+    orderAux.product = product;
+    orderAux.client = self.client;
+    orderAux.quantity = quantity;
+    [self.orders setObject:orderAux forKey:[NSNumber numberWithInteger:product.identifier]];
+    [self updateTotalAmount];
+}
+
+#pragma mark - Private methods
+- (void)updateTotalAmount {
+    if (self.orders && self.orders.count > 0) {
+        NSArray *allOrders = [self.orders allValues];
+        double total = 0;
+        for (Order *oAux in allOrders) {
+            total += oAux.quantity * oAux.product.price;
+        }
+        NSLog(@"%f",total);
+    }
 }
 
 @end

@@ -8,13 +8,13 @@
 
 #import "ProductCell.h"
 
-@interface ProductCell () <ProductDelegate>
+@interface ProductCell () <ProductDelegate, UITextFieldDelegate>
 @end
 
 @implementation ProductCell
 
 - (void)awakeFromNib {
-    // Initialization code
+    self.quantityTextField.delegate = self;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -35,6 +35,21 @@
 
 - (void)imageDidLoad {
     self.image.image = _product.img;
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(productCellDidChange:ForProduct:)]) {
+        [self.delegate productCellDidChange:[textField.text integerValue] ForProduct:self.product];
+    }
+    if ([textField.text isEqualToString:@""]) {
+        textField.text = @"0";
+    }
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    if ([textField.text isEqualToString:@"0"]) {
+        textField.text = @"";
+    }
 }
 
 @end
