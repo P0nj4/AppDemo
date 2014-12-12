@@ -1,0 +1,11 @@
+CREATE TABLE IF NOT EXISTS pedidos (
+id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+id_cliente INTEGER NOT NULL,
+fecha DATETIME NOT NULL
+);
+CREATE TABLE IF NOT EXISTS pedido_productos (
+id_pedido INTEGER NOT NULL,
+id_producto INTEGER NOT NULL,
+cantidad INTEGER NOT NULL,
+PRIMARY KEY (id_pedido, id_producto)
+);
