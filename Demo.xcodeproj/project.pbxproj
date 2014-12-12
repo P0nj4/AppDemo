@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4406C9051A3B275800162D07 /* ClientCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4406C9031A3B275800162D07 /* ClientCell.m */; };
+		4406C9061A3B275800162D07 /* ClientCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4406C9041A3B275800162D07 /* ClientCell.xib */; };
+		4406C9151A3B2BC100162D07 /* UICommonPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4406C9141A3B2BC100162D07 /* UICommonPicker.m */; };
+		4406C9171A3B2C0A00162D07 /* UICommonPicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4406C9161A3B2C0A00162D07 /* UICommonPicker.xib */; };
+		4406C91A1A3B33D500162D07 /* CartTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4406C9191A3B33D500162D07 /* CartTableViewController.m */; };
+		4406C91E1A3B383B00162D07 /* ProductCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4406C91C1A3B383B00162D07 /* ProductCell.m */; };
+		4406C91F1A3B383B00162D07 /* ProductCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4406C91D1A3B383B00162D07 /* ProductCell.xib */; };
 		4429248E1A3A658C0059F280 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4429248D1A3A658C0059F280 /* main.m */; };
 		442924911A3A658C0059F280 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 442924901A3A658C0059F280 /* AppDelegate.m */; };
 		442924971A3A658C0059F280 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 442924951A3A658C0059F280 /* Main.storyboard */; };
@@ -35,6 +42,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4406C9021A3B275800162D07 /* ClientCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClientCell.h; sourceTree = "<group>"; };
+		4406C9031A3B275800162D07 /* ClientCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClientCell.m; sourceTree = "<group>"; };
+		4406C9041A3B275800162D07 /* ClientCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ClientCell.xib; sourceTree = "<group>"; };
+		4406C9131A3B2BC100162D07 /* UICommonPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICommonPicker.h; sourceTree = "<group>"; };
+		4406C9141A3B2BC100162D07 /* UICommonPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICommonPicker.m; sourceTree = "<group>"; };
+		4406C9161A3B2C0A00162D07 /* UICommonPicker.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UICommonPicker.xib; sourceTree = "<group>"; };
+		4406C9181A3B33D500162D07 /* CartTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CartTableViewController.h; sourceTree = "<group>"; };
+		4406C9191A3B33D500162D07 /* CartTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CartTableViewController.m; sourceTree = "<group>"; };
+		4406C91B1A3B383B00162D07 /* ProductCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductCell.h; sourceTree = "<group>"; };
+		4406C91C1A3B383B00162D07 /* ProductCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductCell.m; sourceTree = "<group>"; };
+		4406C91D1A3B383B00162D07 /* ProductCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductCell.xib; sourceTree = "<group>"; };
 		442924881A3A658C0059F280 /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4429248C1A3A658C0059F280 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4429248D1A3A658C0059F280 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -88,6 +106,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4406C8F91A3B144D00162D07 /* CustomTableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				4406C9021A3B275800162D07 /* ClientCell.h */,
+				4406C9031A3B275800162D07 /* ClientCell.m */,
+				4406C9041A3B275800162D07 /* ClientCell.xib */,
+				4406C91B1A3B383B00162D07 /* ProductCell.h */,
+				4406C91C1A3B383B00162D07 /* ProductCell.m */,
+				4406C91D1A3B383B00162D07 /* ProductCell.xib */,
+			);
+			name = CustomTableViewCells;
+			sourceTree = "<group>";
+		};
 		4429247F1A3A658C0059F280 = {
 			isa = PBXGroup;
 			children = (
@@ -120,6 +151,8 @@
 				4429248B1A3A658C0059F280 /* Supporting Files */,
 				442924D61A3A83AC0059F280 /* MainTableViewController.h */,
 				442924D71A3A83AC0059F280 /* MainTableViewController.m */,
+				4406C9181A3B33D500162D07 /* CartTableViewController.h */,
+				4406C9191A3B33D500162D07 /* CartTableViewController.m */,
 			);
 			path = Demo;
 			sourceTree = "<group>";
@@ -183,6 +216,10 @@
 			children = (
 				442924DC1A3A84C70059F280 /* LoadingView.h */,
 				442924DD1A3A84C70059F280 /* LoadingView.m */,
+				4406C8F91A3B144D00162D07 /* CustomTableViewCells */,
+				4406C9131A3B2BC100162D07 /* UICommonPicker.h */,
+				4406C9141A3B2BC100162D07 /* UICommonPicker.m */,
+				4406C9161A3B2C0A00162D07 /* UICommonPicker.xib */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -269,8 +306,11 @@
 			files = (
 				442924971A3A658C0059F280 /* Main.storyboard in Resources */,
 				442924CA1A3A75D00059F280 /* Localizable.strings in Resources */,
+				4406C91F1A3B383B00162D07 /* ProductCell.xib in Resources */,
 				4429249C1A3A658C0059F280 /* LaunchScreen.xib in Resources */,
 				442924991A3A658C0059F280 /* Images.xcassets in Resources */,
+				4406C9171A3B2C0A00162D07 /* UICommonPicker.xib in Resources */,
+				4406C9061A3B275800162D07 /* ClientCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -288,10 +328,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4406C9151A3B2BC100162D07 /* UICommonPicker.m in Sources */,
 				442924C01A3A66300059F280 /* Order.m in Sources */,
 				442924DE1A3A84C70059F280 /* LoadingView.m in Sources */,
 				442924CD1A3A79990059F280 /* ClientManager.m in Sources */,
 				442924BD1A3A66190059F280 /* Product.m in Sources */,
+				4406C91E1A3B383B00162D07 /* ProductCell.m in Sources */,
+				4406C91A1A3B33D500162D07 /* CartTableViewController.m in Sources */,
+				4406C9051A3B275800162D07 /* ClientCell.m in Sources */,
 				442924C41A3A684C0059F280 /* BaseManager.m in Sources */,
 				442924911A3A658C0059F280 /* AppDelegate.m in Sources */,
 				442924BA1A3A660A0059F280 /* Client.m in Sources */,
@@ -498,6 +542,7 @@
 				442924AD1A3A658C0059F280 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		442924AE1A3A658C0059F280 /* Build configuration list for PBXNativeTarget "DemoTests" */ = {
 			isa = XCConfigurationList;
@@ -506,6 +551,7 @@
 				442924B01A3A658C0059F280 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

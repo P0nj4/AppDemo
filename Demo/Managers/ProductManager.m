@@ -27,23 +27,28 @@ static ProductManager *sharedPManager = nil;
     return sharedPManager;
 }
 
-- (void)getAllProducts:(id<ProductManagerDelegate>)delegate {
+- (void)loadProductsWithDelegate:(id<ProductManagerDelegate>)delegate {
     NSString *serverUrl = kServerURL;
     serverUrl = [serverUrl stringByAppendingString:@"products.json"];
     [self makeRequest:serverUrl onSuccess:^(id jsonResult) {
         if (delegate) {
-            NSMutableArray *response = [[NSMutableArray alloc] init];
+            if (!self.allProducts)
+                self.allProducts = [[NSMutableDictionary alloc] init];
+            
             NSArray *result = jsonResult;
             Product *prodAux;
             for (NSDictionary *obj in result) {
                 prodAux = [[Product alloc] init];
                 [prodAux setAttributesFromJson:obj];
-                [response addObject:prodAux];
+                if (prodAux.identifier != 0)
+                    [self.allProducts setObject:prodAux forKey:[NSNumber numberWithInteger:prodAux.identifier]];
             }
-            [delegate getAllProductsResult:response errorMessage:nil];
+            if ([delegate respondsToSelector:@selector(didLoadProducts:)])
+            [[self delegate] didLoadProducts:nil];
         }
     } onError:^(NSError *error) {
-        [[self delegate] getAllProductsResult:nil errorMessage:NSLocalizedString(kStrGenericError, nil)];
+        if ([delegate respondsToSelector:@selector(didLoadProducts:)])
+            [[self delegate] didLoadProducts:error];
     }];
 }
 

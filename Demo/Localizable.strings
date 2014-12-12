@@ -7,3 +7,4 @@
 */
 
 "genericServerError" = "Oups, ocurrió un error, chequee su conexión y vuelva a intentar";
+"retry" = "Reintentar";

@@ -1,10 +1,11 @@
 //
 //  LoadingView.h
-//  PedidosYa!
+//  Demo
 //
-//  Created by Germán Pereyra on 18/03/13.
-//  Copyright (c) 2013 PedidosYa. All rights reserved.
+//  Created by German Pereyra on 12/12/14.
+//  Copyright (c) 2014 German Pereyra. All rights reserved.
 //
+
 
 #import <UIKit/UIKit.h>
 

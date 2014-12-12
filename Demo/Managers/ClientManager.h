@@ -11,12 +11,13 @@
 @class Client;
 
 @protocol ClientManagerDelegate <NSObject>
-- (void)getAllClientsResult:(NSMutableArray *)result errorMessage:(NSString *)error;
-- (void)getClientByIdResult:(Client *)result errorMessage:(NSString *)error;
+- (void)didLoadClients:(NSError *)error;
+- (void)didLoadClientById:(NSError *)error;
 @end
 
 @interface ClientManager : BaseManager
-- (void)getAllClients:(id<ClientManagerDelegate>)delegate;
-- (void)getClientById:(NSInteger)identifier delegate:(id<ClientManagerDelegate>)delegate;
+@property (nonatomic, strong) NSMutableDictionary *allClients;
+- (void)loadClientsWithDelegate:(id<ClientManagerDelegate>)delegate;
+- (void)loadClientById:(NSInteger)identifier delegate:(id<ClientManagerDelegate>)delegate;
 + (ClientManager *)sharedInstance;
 @end

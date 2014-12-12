@@ -15,8 +15,22 @@
     if (!IsNull([json objectForKey:@"nombre"]))
         self.name = [json objectForKey:@"nombre"];
     if (!IsNull([json objectForKey:@"img"]))
-        self.imageURL = [json objectForKey:@"img"];
+        self.imageURL = [NSURL URLWithString:[json objectForKey:@"img"]];
     self.price = [[json objectForKey:@"precio"] doubleValue];
+}
+
+- (void)loadImageWithDelegate:(id<ProductDelegate>)delegate {
+    self.delegate = delegate;
+    __weak typeof(self) weakSelf = self;
+    dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSData *imageData = [NSData dataWithContentsOfURL:weakSelf.imageURL];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            weakSelf.img = [UIImage imageWithData:imageData];
+            if (weakSelf.delegate) {
+                [weakSelf.delegate imageDidLoad];
+            }
+        });
+    });
 }
 
 @end

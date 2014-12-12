@@ -28,27 +28,45 @@ static ClientManager *sharedManager = nil;
     return sharedManager;
 }
 
-- (void)getAllClients:(id<ClientManagerDelegate>)delegate {
+- (void)loadClientsWithDelegate:(id<ClientManagerDelegate>)delegate {
     NSString *serverUrl = kServerURL;
     serverUrl = [serverUrl stringByAppendingString:@"clients.json"];
-    [self makeRequest:serverUrl onSuccess:^(id jsonResult) {
-        if (delegate) {
-            NSMutableArray *response = [[NSMutableArray alloc] init];
-            NSArray *result = jsonResult;
-            Client *cliAux;
-            for (NSDictionary *obj in result) {
-                cliAux = [[Client alloc] init];
-                [cliAux setAttributesFromJson:obj];
-                [response addObject:cliAux];
+    self.delegate = delegate;
+    __weak typeof(self) weakerSelf = self;
+    dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        
+        [weakerSelf makeSyncRequest:serverUrl onSuccess:^(id jsonResult) {
+            if (delegate) {
+                if (!weakerSelf.allClients)
+                    weakerSelf.allClients = [[NSMutableDictionary alloc] init];
+                
+                NSArray *result = jsonResult;
+                Client *cliAux;
+                for (NSDictionary *obj in result) {
+                    cliAux = [[Client alloc] init];
+                    [cliAux setAttributesFromJson:obj];
+                    if (cliAux.identifier != 0)
+                        [weakerSelf.allClients setObject:cliAux forKey:[NSNumber numberWithInteger:cliAux.identifier]];
+                }
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if ([[weakerSelf delegate] respondsToSelector:@selector(didLoadClients:)])
+                        [[weakerSelf delegate] didLoadClients:nil];
+                });
             }
-            [delegate getAllClientsResult:response errorMessage:nil];
-        }
-    } onError:^(NSError *error) {
-        [[self delegate] getAllClientsResult:nil errorMessage:NSLocalizedString(kStrGenericError, nil)];
-    }];
+        } onError:^(NSError *error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if ([[weakerSelf delegate] respondsToSelector:@selector(didLoadClients:)])
+                    [[weakerSelf delegate] didLoadClients:error];
+            });
+        }];
+        
+    });
 }
 
-- (void)getClientById:(NSInteger)identifier delegate:(id<ClientManagerDelegate>)delegate {
+- (void)loadClientById:(NSInteger)identifier delegate:(id<ClientManagerDelegate>)delegate {
+    NSNumber *numIdentifier = [NSNumber numberWithInteger:identifier];
+    if (self.allClients && [self.allClients objectForKey:numIdentifier])
+        [self.allClients setObject:nil forKey:numIdentifier];
     
     NSString *serverUrl = kServerURL;
     serverUrl = [serverUrl stringByAppendingString:[NSString stringWithFormat:@"clientById.php?id=%ld", (long)identifier]];
@@ -57,11 +75,14 @@ static ClientManager *sharedManager = nil;
             NSDictionary *result = jsonResult;
             Client *cliAux = [[Client alloc] init];
             [cliAux setAttributesFromJson:result];
-            [delegate getClientByIdResult:cliAux errorMessage:nil];
+            [self.allClients setObject:cliAux forKey:numIdentifier];
+            if ([delegate respondsToSelector:@selector(didLoadClientById:)])
+                [delegate didLoadClientById:nil];
         }
     } onError:^(NSError *error) {
-        [[self delegate] getClientByIdResult:nil errorMessage:NSLocalizedString(kStrGenericError, nil)];
+        if ([delegate respondsToSelector:@selector(didLoadClientById:)])
+            [[self delegate] didLoadClientById:error];
     }];
-
+    
 }
 @end

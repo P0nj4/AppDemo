@@ -9,10 +9,11 @@
 #import "BaseManager.h"
 
 @protocol ProductManagerDelegate <NSObject>
-- (void)getAllProductsResult:(NSMutableArray *)result errorMessage:(NSString *)error;
+- (void)didLoadProducts:(NSError *)error;
 @end
 
 @interface ProductManager : BaseManager
-- (void)getAllProducts:(id<ProductManagerDelegate>)delegate;
+@property (nonatomic, strong) NSMutableDictionary *allProducts;
+- (void)loadProductsWithDelegate:(id<ProductManagerDelegate>)delegate;
 + (ProductManager *)sharedInstance;
 @end

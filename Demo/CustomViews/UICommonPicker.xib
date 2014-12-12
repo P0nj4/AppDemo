@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UICommonPicker">
+            <connections>
+                <outlet property="background" destination="Wa1-vq-wCm" id="l4v-tx-TOT"/>
+                <outlet property="btnDone" destination="mzZ-B9-BU6" id="jB3-8R-JZV"/>
+                <outlet property="pickerView" destination="gz4-np-zXU" id="gKc-yK-d05"/>
+                <outlet property="view" destination="iN0-l3-epB" id="1P1-jA-sKS"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wa1-vq-wCm">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
+                <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gz4-np-zXU">
+                    <rect key="frame" x="0.0" y="438" width="600" height="162"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="yhS-cY-Hgk"/>
+                        <outlet property="delegate" destination="-1" id="VLr-8W-l5x"/>
+                    </connections>
+                </pickerView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j6Q-zL-GUM">
+                    <rect key="frame" x="0.0" y="394" width="600" height="44"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mzZ-B9-BU6">
+                            <rect key="frame" x="516" y="7" width="60" height="31"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="60" id="eHg-hO-LYr"/>
+                            </constraints>
+                            <state key="normal" title="Done">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="btnDonePressed:" destination="-1" eventType="touchUpInside" id="dlr-20-Wq6"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="mzZ-B9-BU6" firstAttribute="top" secondItem="j6Q-zL-GUM" secondAttribute="top" constant="7" id="I5K-DS-dzn"/>
+                        <constraint firstAttribute="height" constant="44" id="OAL-RB-1vI"/>
+                        <constraint firstAttribute="trailing" secondItem="mzZ-B9-BU6" secondAttribute="trailing" constant="24" id="pjH-W5-G7y"/>
+                        <constraint firstAttribute="bottom" secondItem="mzZ-B9-BU6" secondAttribute="bottom" constant="6" id="vlr-59-fz0"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="gz4-np-zXU" firstAttribute="top" secondItem="j6Q-zL-GUM" secondAttribute="bottom" id="22k-2S-tgt"/>
+                <constraint firstItem="Wa1-vq-wCm" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="5bc-D0-2ib"/>
+                <constraint firstAttribute="trailing" secondItem="Wa1-vq-wCm" secondAttribute="trailing" id="8GM-4g-KFE"/>
+                <constraint firstItem="Wa1-vq-wCm" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="8pc-Jo-WAe"/>
+                <constraint firstItem="j6Q-zL-GUM" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="HaW-iA-bCf"/>
+                <constraint firstAttribute="bottom" secondItem="gz4-np-zXU" secondAttribute="bottom" id="NO0-5O-Sva"/>
+                <constraint firstAttribute="trailing" secondItem="gz4-np-zXU" secondAttribute="trailing" id="Xpl-2t-cSn"/>
+                <constraint firstItem="gz4-np-zXU" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="aIj-ex-ih4"/>
+                <constraint firstAttribute="bottom" secondItem="Wa1-vq-wCm" secondAttribute="bottom" id="dYM-Ed-A6d"/>
+                <constraint firstAttribute="trailing" secondItem="j6Q-zL-GUM" secondAttribute="trailing" id="e1K-m0-uCk"/>
+            </constraints>
+        </view>
+    </objects>
+</document>

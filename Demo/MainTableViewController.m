@@ -6,15 +6,29 @@
 //  Copyright (c) 2014 German Pereyra. All rights reserved.
 //
 
+//view controllers
 #import "MainTableViewController.h"
+#import "CartTableViewController.h"
 
-@interface MainTableViewController ()
+//entities
+#import "ClientManager.h"
+#import "Client.h"
+
+//custom views
+#import "LoadingView.h"
+#import "ClientCell.h"
+
+@interface MainTableViewController () <ClientManagerDelegate, UIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmented;
-@property (weak, nonatomic) IBOutlet UITableView *table;
-
+@property (nonatomic, strong) NSArray *listOfClients;
 @end
 
 @implementation MainTableViewController
+
+- (void)setListOfClients:(NSArray *)listOfClients {
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
+    _listOfClients= [listOfClients sortedArrayUsingDescriptors:@[sort]];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -24,6 +38,12 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    if (![[ClientManager sharedInstance] allClients] || [[[ClientManager sharedInstance] allClients] count] == 0) {
+        [LoadingView loadingShowOnView:self.view animated:NO frame:self.view.bounds];
+        [[ClientManager sharedInstance] loadClientsWithDelegate:self];
+    } else
+        self.listOfClients = [[[ClientManager sharedInstance] allClients] allValues];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -34,69 +54,69 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
+    if (self.listOfClients)
+        return self.listOfClients.count;
     return 0;
 }
 
-/*
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 44;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
-    // Configure the cell...
-    
+    ClientCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ClientTVCell"];
+    if (!cell) {
+        [tableView registerNib:[UINib nibWithNibName:@"ClientCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"ClientTVCell"];
+        cell = [tableView dequeueReusableCellWithIdentifier:@"ClientTVCell"];
+    }
     return cell;
 }
-*/
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    Client *client = [self.listOfClients objectAtIndex:indexPath.row];
+    ClientCell *clientCell = (ClientCell *)cell;
+    [clientCell setClient:client];
 }
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [self performSegueWithIdentifier:@"addProducts" sender:nil];
 }
-*/
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    if ([[segue identifier] isEqualToString:@"addProducts"]) {
+        
+        NSIndexPath *path = [self.tableView indexPathForSelectedRow];
+        Client *client = [self.listOfClients objectAtIndex:path.row];
+        
+        CartTableViewController *vc = [segue destinationViewController];
+        [vc setClient:client];
+    }
+    
 }
-*/
 
+
+#pragma mark - ClientManagerDelegate
+- (void)didLoadClients:(NSError *)error {
+    if (error) {
+        [[[UIAlertView alloc] initWithTitle:@"Oups" message:NSLocalizedString(@"genericServerError", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"retry", nil) otherButtonTitles:nil] show];
+        return;
+    }
+    [LoadingView loadingHideOnView:self.view animated:YES];
+    self.listOfClients = [[[ClientManager sharedInstance] allClients] allValues];
+    [self.tableView reloadData];
+    
+}
+
+#pragma mark - UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    [[ClientManager sharedInstance] loadClientsWithDelegate:self];
+}
 @end
