@@ -27,38 +27,37 @@
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" misplaced="YES" text="Cantidad" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lz7-LK-9Ex">
-                        <rect key="frame" x="76" y="44" width="173" height="16"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Cantidad" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lz7-LK-9Ex">
+                        <rect key="frame" x="76" y="44" width="55" height="16"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="00000" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IMe-DR-XgC">
-                        <rect key="frame" x="259" y="44" width="45" height="16"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
+                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="phB-4x-Dtq">
+                        <rect key="frame" x="271" y="37" width="41" height="30"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                    </textField>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="trailingMargin" secondItem="phB-4x-Dtq" secondAttribute="trailing" id="1lU-l6-rVx"/>
                     <constraint firstItem="lz7-LK-9Ex" firstAttribute="top" secondItem="UBi-1K-VjB" secondAttribute="bottom" constant="10" id="3aP-oE-uGT"/>
                     <constraint firstItem="UBi-1K-VjB" firstAttribute="leading" secondItem="4vc-bU-eui" secondAttribute="trailing" constant="8" id="Gsm-VP-Tcy"/>
-                    <constraint firstItem="IMe-DR-XgC" firstAttribute="centerY" secondItem="lz7-LK-9Ex" secondAttribute="centerY" id="SC5-C2-dS3"/>
                     <constraint firstItem="4vc-bU-eui" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="TbD-MV-40L"/>
-                    <constraint firstItem="IMe-DR-XgC" firstAttribute="leading" secondItem="lz7-LK-9Ex" secondAttribute="trailing" constant="10" id="ToC-yD-1Ne"/>
                     <constraint firstItem="UBi-1K-VjB" firstAttribute="centerY" secondItem="4vc-bU-eui" secondAttribute="centerY" constant="-14.5" id="b9G-Zh-bX4"/>
+                    <constraint firstItem="phB-4x-Dtq" firstAttribute="centerY" secondItem="lz7-LK-9Ex" secondAttribute="centerY" id="lWh-3X-8UU"/>
                     <constraint firstItem="lz7-LK-9Ex" firstAttribute="leading" secondItem="4vc-bU-eui" secondAttribute="trailing" constant="8" id="tda-tn-Agh"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="IMe-DR-XgC" secondAttribute="trailing" constant="8" id="uMP-LR-1qQ"/>
                     <constraint firstItem="4vc-bU-eui" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="ub9-oA-c78"/>
+                    <constraint firstItem="phB-4x-Dtq" firstAttribute="leading" secondItem="lz7-LK-9Ex" secondAttribute="trailing" constant="140" id="yyb-hI-h0e"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="QuantityAmountLabel" destination="IMe-DR-XgC" id="GRW-hl-10J"/>
                 <outlet property="image" destination="4vc-bU-eui" id="5bz-hn-jyK"/>
                 <outlet property="nameLabel" destination="UBi-1K-VjB" id="LQD-Ck-FVW"/>
                 <outlet property="quantityLabel" destination="lz7-LK-9Ex" id="m56-63-yDh"/>
+                <outlet property="quantityTextField" destination="phB-4x-Dtq" id="keY-77-phC"/>
             </connections>
-            <point key="canvasLocation" x="237" y="285"/>
+            <point key="canvasLocation" x="237" y="284"/>
         </tableViewCell>
     </objects>
 </document>

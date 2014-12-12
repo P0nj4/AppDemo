@@ -11,5 +11,8 @@
 
 @interface ProductCell : UITableViewCell
 @property (nonatomic, weak) Product *product;
-
+@property (weak, nonatomic) IBOutlet UIImageView *image;
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *quantityLabel;
+@property (weak, nonatomic) IBOutlet UITextField *quantityTextField;
 @end

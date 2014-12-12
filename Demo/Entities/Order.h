@@ -7,7 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Product.h"
+#import "Client.h"
 
 @interface Order : NSObject
+@property (nonatomic, weak) Product *product;
+@property (nonatomic, weak) Client *client;
+@property (nonatomic) NSInteger quantity;
 
 @end

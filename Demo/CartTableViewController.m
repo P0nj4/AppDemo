@@ -76,13 +76,21 @@
     return cell;
 }
 
-
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     Product *prod = [self.listOfProducts objectAtIndex:indexPath.row];
     if (((ProductCell *)cell).product) {
         ((ProductCell *)cell).product.delegate = nil;
     }
     [((ProductCell *)cell) setProduct:prod];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    ProductCell *cell = (ProductCell *)[tableView cellForRowAtIndexPath:indexPath];
+    [cell.quantityTextField becomeFirstResponder];
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    [self.tableView endEditing:YES];
 }
 
 #pragma mark - ProductManagerDelegate
