@@ -11,7 +11,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface BaseManager : NSObject
+@interface ServerBaseManager : NSObject
 
 - (void)makeRequest:(NSString *)url onSuccess:(void (^)(id json))successHandler onError:(void (^)(NSError *error))errorHandler;
 - (void)makeSyncRequest:(NSString *)url onSuccess:(void (^)(id json))successHandler onError:(void (^)(NSError *error))errorHandler;

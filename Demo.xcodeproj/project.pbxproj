@@ -21,7 +21,7 @@
 		442924BA1A3A660A0059F280 /* Client.m in Sources */ = {isa = PBXBuildFile; fileRef = 442924B91A3A660A0059F280 /* Client.m */; };
 		442924BD1A3A66190059F280 /* Product.m in Sources */ = {isa = PBXBuildFile; fileRef = 442924BC1A3A66190059F280 /* Product.m */; };
 		442924C01A3A66300059F280 /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = 442924BF1A3A66300059F280 /* Order.m */; };
-		442924C41A3A684C0059F280 /* BaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 442924C31A3A684C0059F280 /* BaseManager.m */; };
+		442924C41A3A684C0059F280 /* ServerBaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 442924C31A3A684C0059F280 /* ServerBaseManager.m */; };
 		442924C71A3A6BE50059F280 /* ProductManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 442924C61A3A6BE50059F280 /* ProductManager.m */; };
 		442924CA1A3A75D00059F280 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 442924C91A3A75D00059F280 /* Localizable.strings */; };
 		442924CD1A3A79990059F280 /* ClientManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 442924CC1A3A79990059F280 /* ClientManager.m */; };
@@ -65,8 +65,8 @@
 		442924BC1A3A66190059F280 /* Product.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Product.m; sourceTree = "<group>"; };
 		442924BE1A3A66300059F280 /* Order.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Order.h; sourceTree = "<group>"; };
 		442924BF1A3A66300059F280 /* Order.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Order.m; sourceTree = "<group>"; };
-		442924C21A3A684C0059F280 /* BaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseManager.h; sourceTree = "<group>"; };
-		442924C31A3A684C0059F280 /* BaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseManager.m; sourceTree = "<group>"; };
+		442924C21A3A684C0059F280 /* ServerBaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerBaseManager.h; sourceTree = "<group>"; };
+		442924C31A3A684C0059F280 /* ServerBaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerBaseManager.m; sourceTree = "<group>"; };
 		442924C51A3A6BE50059F280 /* ProductManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductManager.h; sourceTree = "<group>"; };
 		442924C61A3A6BE50059F280 /* ProductManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductManager.m; sourceTree = "<group>"; };
 		442924C81A3A73300059F280 /* Demo-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Demo-Prefix.pch"; sourceTree = "<group>"; };
@@ -196,8 +196,8 @@
 		442924C11A3A664B0059F280 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				442924C21A3A684C0059F280 /* BaseManager.h */,
-				442924C31A3A684C0059F280 /* BaseManager.m */,
+				442924C21A3A684C0059F280 /* ServerBaseManager.h */,
+				442924C31A3A684C0059F280 /* ServerBaseManager.m */,
 				442924C51A3A6BE50059F280 /* ProductManager.h */,
 				442924C61A3A6BE50059F280 /* ProductManager.m */,
 				442924CB1A3A79990059F280 /* ClientManager.h */,
@@ -326,7 +326,7 @@
 				4406C91E1A3B383B00162D07 /* ProductCell.m in Sources */,
 				4406C91A1A3B33D500162D07 /* CartTableViewController.m in Sources */,
 				4406C9051A3B275800162D07 /* ClientCell.m in Sources */,
-				442924C41A3A684C0059F280 /* BaseManager.m in Sources */,
+				442924C41A3A684C0059F280 /* ServerBaseManager.m in Sources */,
 				442924911A3A658C0059F280 /* AppDelegate.m in Sources */,
 				442924BA1A3A660A0059F280 /* Client.m in Sources */,
 				4429248E1A3A658C0059F280 /* main.m in Sources */,

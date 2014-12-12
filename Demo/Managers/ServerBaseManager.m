@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 German Pereyra. All rights reserved.
 //
 
-#import "BaseManager.h"
+#import "ServerBaseManager.h"
 
-@implementation BaseManager
+@implementation ServerBaseManager
 
 - (void)makeRequest:(NSString *)url onSuccess:(void (^)(id json))successHandler onError:(void (^)(NSError *error))errorHandler {
     NSString *strURL = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];

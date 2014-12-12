@@ -6,13 +6,13 @@
 //  Copyright (c) 2014 German Pereyra. All rights reserved.
 //
 
-#import "BaseManager.h"
+#import "ServerBaseManager.h"
 
 @protocol ProductManagerDelegate <NSObject>
 - (void)didLoadProducts:(NSError *)error;
 @end
 
-@interface ProductManager : BaseManager
+@interface ProductManager : ServerBaseManager
 @property (nonatomic, strong) NSMutableDictionary *allProducts;
 - (void)loadProductsWithDelegate:(id<ProductManagerDelegate>)delegate;
 + (ProductManager *)sharedInstance;

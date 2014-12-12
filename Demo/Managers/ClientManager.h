@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 German Pereyra. All rights reserved.
 //
 
-#import "BaseManager.h"
+#import "ServerBaseManager.h"
 
 @class Client;
 
@@ -15,7 +15,7 @@
 - (void)didLoadClientById:(NSError *)error;
 @end
 
-@interface ClientManager : BaseManager
+@interface ClientManager : ServerBaseManager
 @property (nonatomic, strong) NSMutableDictionary *allClients;
 - (void)loadClientsWithDelegate:(id<ClientManagerDelegate>)delegate;
 - (void)loadClientById:(NSInteger)identifier delegate:(id<ClientManagerDelegate>)delegate;
