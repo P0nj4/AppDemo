@@ -1,0 +1,19 @@
+//
+//  Demo-Prefix.pch
+//  Demo
+//
+//  Created by German Pereyra on 12/11/14.
+//  Copyright (c) 2014 German Pereyra. All rights reserved.
+//
+
+#ifndef Demo_Demo_Prefix_pch
+#define Demo_Demo_Prefix_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#define IsNull(object) \
+(([object isEqual:[NSNull null]]) || (object == nil))
+
+
+#endif

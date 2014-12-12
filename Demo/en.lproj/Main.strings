@@ -1,0 +1,6 @@
+
+/* Class = "IBUISegmentedControl"; 7GY-cs-eap.segmentTitles[0] = "Clients"; ObjectID = "7GY-cs-eap"; */
+"7GY-cs-eap.segmentTitles[0]" = "Clients";
+
+/* Class = "IBUISegmentedControl"; 7GY-cs-eap.segmentTitles[1] = "Orders"; ObjectID = "7GY-cs-eap"; */
+"7GY-cs-eap.segmentTitles[1]" = "Orders";
