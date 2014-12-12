@@ -15,6 +15,9 @@
 
 - (void)awakeFromNib {
     self.quantityTextField.delegate = self;
+    [self.quantityTextField addTarget:self
+                  action:@selector(textFieldDidChange:)
+        forControlEvents:UIControlEventEditingChanged];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -35,6 +38,18 @@
 
 - (void)imageDidLoad {
     self.image.image = _product.img;
+}
+
+- (BOOL)textFieldDidChange:(UITextField *)textField {
+    NSInteger quantity = 0;
+    if (textField.text.length != 0) {
+        quantity = [textField.text integerValue];
+    }
+    if (self.delegate && [self.delegate respondsToSelector:@selector(productCellDidChange:ForProduct:)]) {
+        [self.delegate productCellDidChange:quantity ForProduct:self.product];
+    }
+    
+    return YES;
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
