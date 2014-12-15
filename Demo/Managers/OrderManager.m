@@ -11,7 +11,7 @@
 
 @implementation OrderManager
 
-- (NSMutableDictionary *)getAll{
+- (NSMutableDictionary *)getAll {
     FMDatabase *database = [self getDB];
     [database open];
     FMResultSet *results = [database executeQuery:@"SELECT p.id_cliente, p.fecha, p.* from pedidos p inner join pedido_productos pp on (pp.id_pedido = p.id)", nil];
@@ -43,11 +43,15 @@
     return dict;
 }
 
-- (void)insert {
+- (void)insert:(Order *)order Error:(NSError **)error {
+    
+    if (order.clientIdentifier == 0)
+        return;
     
     FMDatabase *database = [self getDB];
     [database open];
-    BOOL result = [database executeUpdate:@"INSERT INTO pedidos (fecha, id_cliente) VALUES (?, ?)",[NSDate date], self.lastName, self.name, [NSNumber numberWithInteger:self.doctor.identifier], nil];
+    
+    BOOL result = [database executeUpdate:@"INSERT INTO pedidos (fecha, id_cliente) VALUES (?, ?)",[NSDate date] , [NSNumber numberWithInteger:order.clientIdentifier], nil];
     if (!result) {
         [database close];
         @throw [[NSException alloc] initWithName:kGenericError reason:@"Enable to save the data" userInfo:nil];
