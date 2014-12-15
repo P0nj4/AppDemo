@@ -11,8 +11,11 @@
 #import "Client.h"
 
 @interface Order : NSObject
-@property (nonatomic, weak) Product *product;
+@property (nonatomic, strong) NSMutableDictionary *products;
 @property (nonatomic, weak) Client *client;
-@property (nonatomic) NSInteger quantity;
+@property (nonatomic, strong) NSDate *date;
+@property (nonatomic) NSInteger identifier;
+@property (nonatomic) NSInteger clientIdentifier;
+
 
 @end

@@ -7,11 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <sqlite3.h>
+#import "FMDB.h"
 
 @interface DataBaseManager : NSObject
-@property (nonatomic, strong) NSString *documentsDirectory;
-@property (nonatomic, strong) NSString *databaseFilename;
-- (void)loadDB;
--(void)runQuery:(const char *)query isQueryExecutable:(BOOL)queryExecutable;
+- (FMDatabase *)getDB;
 @end
