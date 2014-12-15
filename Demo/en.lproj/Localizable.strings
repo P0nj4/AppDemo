@@ -9,6 +9,7 @@
 //Errors
 "genericServerError" = "Oups, there was an error, please check your connection and retry";
 "errorSavingOrder" = "Sorry, there was an error saving the order";
+"NoSelectedProductError" = "Sorry, but seems that you haven't select any product from the list, please try again";
 
 "retry" = "Retry";
 "done" = "Done";

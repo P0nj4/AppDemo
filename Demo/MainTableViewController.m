@@ -124,6 +124,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self performSegueWithIdentifier:@"addProducts" sender:nil];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 #pragma mark - Navigation
@@ -155,7 +156,6 @@
     [LoadingView loadingHideOnView:self.view animated:YES];
     self.listOfClients = [[[ClientManager sharedInstance] allClients] allValues];
     [self.tableView reloadData];
-    
 }
 
 #pragma mark - UIAlertViewDelegate

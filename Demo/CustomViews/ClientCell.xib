@@ -37,8 +37,8 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="addressLabel" destination="lNu-9u-JDc" id="8nN-Wb-3L7"/>
-                <outlet property="nameLabel" destination="LaE-Tt-PaO" id="DHY-VC-w0l"/>
+                <outlet property="addressLabel" destination="LaE-Tt-PaO" id="RQi-Mi-rY3"/>
+                <outlet property="nameLabel" destination="lNu-9u-JDc" id="Q2r-tt-3IS"/>
             </connections>
         </tableViewCell>
     </objects>

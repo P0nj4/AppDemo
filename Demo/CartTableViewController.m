@@ -189,6 +189,10 @@
 }
 
 - (void)doneAction {
+    if (self.order.products.count == 0) {
+        [[[UIAlertView alloc] initWithTitle:@"Oups" message:NSLocalizedString(@"NoSelectedProductError", nil) delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] show];
+        return;
+    }
     NSError *error;
     if (!self.isEditMode) {
         self.order.clientIdentifier = self.client.identifier;
