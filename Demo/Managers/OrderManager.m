@@ -65,6 +65,7 @@ static OrderManager *sharedManager = nil;
     
     BOOL result = [database executeUpdate:@"INSERT INTO pedidos (fecha, id_cliente) VALUES (?, ?)",[NSDate date] , [NSNumber numberWithInteger:order.clientIdentifier], nil];
     if (result) {
+        NSInteger lastRow = (NSInteger)[database lastInsertRowId] ;
         NSArray *allProductIdentifiers = [order.products allKeys];
         for (int i = 0; i < allProductIdentifiers.count; i++) {
             

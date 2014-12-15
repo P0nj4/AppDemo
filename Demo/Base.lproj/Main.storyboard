@@ -22,6 +22,9 @@
                                         <segment title="Clients"/>
                                         <segment title="Orders"/>
                                     </segments>
+                                    <connections>
+                                        <action selector="segmentedDidChanged:" destination="Txs-kj-kE2" eventType="valueChanged" id="Kll-nu-1BC"/>
+                                    </connections>
                                 </segmentedControl>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

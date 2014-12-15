@@ -10,8 +10,9 @@
 #import "MainTableViewController.h"
 #import "CartTableViewController.h"
 
-//entities
+//entities & managers
 #import "ClientManager.h"
+#import "OrderManager.h"
 #import "Client.h"
 
 //custom views
@@ -21,6 +22,8 @@
 @interface MainTableViewController () <ClientManagerDelegate, UIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmented;
 @property (nonatomic, strong) NSArray *listOfClients;
+@property (nonatomic, strong) NSArray *listOfOrders;
+- (IBAction)segmentedDidChanged:(id)sender;
 @end
 
 @implementation MainTableViewController
@@ -58,8 +61,12 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (self.listOfClients)
-        return self.listOfClients.count;
+    if (self.segmented.selectedSegmentIndex == 0) {
+        if (self.listOfClients)
+            return self.listOfClients.count;
+    } else {
+        return self.listOfOrders.count;
+    }
     return 0;
 }
 
@@ -68,23 +75,40 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ClientCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ClientTVCell"];
-    if (!cell) {
-        [tableView registerNib:[UINib nibWithNibName:@"ClientCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"ClientTVCell"];
-        cell = [tableView dequeueReusableCellWithIdentifier:@"ClientTVCell"];
+    if (self.segmented.selectedSegmentIndex == 0) {
+        ClientCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ClientTVCell"];
+        if (!cell) {
+            [tableView registerNib:[UINib nibWithNibName:@"ClientCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"ClientTVCell"];
+            cell = [tableView dequeueReusableCellWithIdentifier:@"ClientTVCell"];
+        }
+        return cell;
+    } else {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"OrderCell"];
+        if (!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"OrderCell"];
+        }
+        Order *oAux = [self.listOfOrders objectAtIndex:indexPath.row];
+        NSDateFormatter *fomatter = [[NSDateFormatter alloc] init];
+        [fomatter setDateFormat:@"dd/MM/yyyy hh:mm:ss"];
+        cell.detailTextLabel.text = [fomatter stringFromDate:oAux.date];
+        cell.textLabel.text = [NSString stringWithFormat:@"%i",oAux.clientIdentifier];
+        return cell;
     }
-    return cell;
 }
 
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    Client *client = [self.listOfClients objectAtIndex:indexPath.row];
-    ClientCell *clientCell = (ClientCell *)cell;
-    [clientCell setClient:client];
+    if (self.segmented.selectedSegmentIndex == 0) {
+        Client *client = [self.listOfClients objectAtIndex:indexPath.row];
+        ClientCell *clientCell = (ClientCell *)cell;
+        [clientCell setClient:client];
+    }
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [self performSegueWithIdentifier:@"addProducts" sender:nil];
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.segmented.selectedSegmentIndex == 0) {
+        [self performSegueWithIdentifier:@"addProducts" sender:nil];
+    }
 }
 
 #pragma mark - Navigation
@@ -102,7 +126,6 @@
     
 }
 
-
 #pragma mark - ClientManagerDelegate
 - (void)didLoadClients:(NSError *)error {
     if (error) {
@@ -119,4 +142,14 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     [[ClientManager sharedInstance] loadClientsWithDelegate:self];
 }
+
+#pragma mark - Actions 
+- (IBAction)segmentedDidChanged:(id)sender {
+    if (self.segmented.selectedSegmentIndex == 1) {
+        self.listOfOrders = nil;
+        self.listOfOrders = [[[OrderManager sharedInstance] getAll] allValues];
+    }
+    [self.tableView reloadData];
+}
+
 @end
