@@ -158,6 +158,8 @@
     [self.tableView reloadData];
 }
 
+- (void)didLoadClientById:(NSError *)error {}
+
 #pragma mark - UIAlertViewDelegate
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     [[ClientManager sharedInstance] loadClientsWithDelegate:self];

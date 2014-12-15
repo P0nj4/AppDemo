@@ -18,7 +18,7 @@
 - (id)makeSyncRequest:(NSString *)url onSuccess:(void (^)(id json))successHandler onError:(void (^)(NSError *error))errorHandler {
     NSString *strURL = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSURL *urlForReq = [NSURL URLWithString:strURL];
-    NSLog(@"request %@", urlForReq);
+    //NSLog(@"request %@", urlForReq);
     
     NSURLRequest* urlRequest =  [NSURLRequest requestWithURL:urlForReq cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
     NSURLResponse* response = nil;

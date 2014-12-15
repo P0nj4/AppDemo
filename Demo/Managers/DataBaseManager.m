@@ -16,8 +16,15 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        [self SCHEME];
-        [self initializeDB];
+        if (![[NSFileManager defaultManager] fileExistsAtPath:[self getDBPath]]){
+            NSString *dbPath = [[NSBundle mainBundle] pathForResource:@"mydatabase" ofType:@"sqlite"];
+            NSError *error;
+            [[NSFileManager defaultManager] copyItemAtPath:dbPath toPath:[self getDBPath] error:&error];
+            if (error) {
+                [self initializeDB];
+            }
+            //[self SCHEME];
+        }
     }
     return self;
 }
@@ -34,16 +41,11 @@
         if (query.length > 0)
             [database executeUpdate:query];
     }
-    
     [database close];
 }
 
 - (void)SCHEME {
-    NSArray *docPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDir = [docPaths objectAtIndex:0];
-    NSString *dbPath = [documentsDir   stringByAppendingPathComponent:kDataBaseName];
-    
-    FMDatabase *database = [FMDatabase databaseWithPath:dbPath];
+    FMDatabase *database = [FMDatabase databaseWithPath:[self getDBPath]];
     [database open];
     FMResultSet *results = [database executeQuery:@"SELECT name, sql FROM sqlite_master WHERE type='table' ORDER BY name", [NSNumber numberWithBool:NO], nil];
     while([results next]) {
@@ -63,5 +65,11 @@
     return database;
 }
 
+- (NSString *)getDBPath {
+    NSArray *docPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDir = [docPaths objectAtIndex:0];
+    NSString *dbPath = [documentsDir stringByAppendingPathComponent:kDataBaseName];
+    return dbPath;
+}
 
 @end

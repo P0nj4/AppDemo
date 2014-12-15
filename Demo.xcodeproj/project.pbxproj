@@ -35,6 +35,7 @@
 		442924D81A3A83AC0059F280 /* MainTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 442924D71A3A83AC0059F280 /* MainTableViewController.m */; };
 		442924DE1A3A84C70059F280 /* LoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 442924DD1A3A84C70059F280 /* LoadingView.m */; };
 		443C93011A3F629E006CD7AA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 443C93031A3F629E006CD7AA /* Localizable.strings */; };
+		443C930D1A3F7214006CD7AA /* mydatabase.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 443C930C1A3F7214006CD7AA /* mydatabase.sqlite */; };
 		44F7824A1A3F02A60000A246 /* OrderManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 44F782491A3F02A60000A246 /* OrderManager.m */; };
 		44F7824F1A3F5B4E0000A246 /* OrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 44F7824D1A3F5B4E0000A246 /* OrderCell.m */; };
 		44F782501A3F5B4E0000A246 /* OrderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 44F7824E1A3F5B4E0000A246 /* OrderCell.xib */; };
@@ -104,6 +105,7 @@
 		443C93021A3F629E006CD7AA /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		443C93041A3F62A2006CD7AA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		443C93071A3F63D2006CD7AA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		443C930C1A3F7214006CD7AA /* mydatabase.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = mydatabase.sqlite; sourceTree = "<group>"; };
 		44F782481A3F02A60000A246 /* OrderManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderManager.h; sourceTree = "<group>"; };
 		44F782491A3F02A60000A246 /* OrderManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderManager.m; sourceTree = "<group>"; };
 		44F7824C1A3F5B4E0000A246 /* OrderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderCell.h; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 		4429248B1A3A658C0059F280 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				443C930C1A3F7214006CD7AA /* mydatabase.sqlite */,
 				4406C9391A3B7D8400162D07 /* db.sql */,
 				4429248C1A3A658C0059F280 /* Info.plist */,
 				4429248D1A3A658C0059F280 /* main.m */,
@@ -370,6 +373,7 @@
 				4429249C1A3A658C0059F280 /* LaunchScreen.xib in Resources */,
 				442924991A3A658C0059F280 /* Images.xcassets in Resources */,
 				4406C9061A3B275800162D07 /* ClientCell.xib in Resources */,
+				443C930D1A3F7214006CD7AA /* mydatabase.sqlite in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

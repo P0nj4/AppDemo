@@ -119,6 +119,9 @@
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    if (!self.listOfProducts) {
+        return nil;
+    }
     float tableWidth = self.tableView.frame.size.width;
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableWidth, 44)];
     footerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;

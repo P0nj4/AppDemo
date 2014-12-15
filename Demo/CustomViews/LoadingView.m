@@ -2,7 +2,7 @@
 //  LoadingView.m
 //  Demo
 //
-//  Created by German Pereyra on 12/15/14.
+//  Created by German Pereyra on 01/11/14.
 //  Copyright (c) 2014 German Pereyra. All rights reserved.
 //
 
@@ -43,12 +43,9 @@
     ((UILabel *)[self viewWithTag:kLoadingLabel]).text = [NSString stringWithFormat:@"%@...",loadingText];
 }
 
-
 + (void)loadingShowOnView:(UIView *)view animated:(BOOL)animated frame:(CGRect)frame{
     [self loadingShowOnView:view withTag:kLoadingViewTag animated:animated frame:frame];
 }
-
-
 
 + (void)loadingShowOnView:(UIView *)view withTag:(long)tag animated:(BOOL)animated frame:(CGRect)frame{
     if(![view viewWithTag:tag]){
