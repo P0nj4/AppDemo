@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "Client.h"
+#import "Order.h"
 
 @interface CartTableViewController : UITableViewController
 @property (nonatomic, weak) Client *client;
+@property (nonatomic, strong) Order *order;
 @end

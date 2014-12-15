@@ -16,7 +16,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        //[self SCHEME];
+        [self SCHEME];
         [self initializeDB];
     }
     return self;

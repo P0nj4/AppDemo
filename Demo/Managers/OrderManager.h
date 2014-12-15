@@ -11,6 +11,7 @@
 
 @interface OrderManager : DataBaseManager
 + (OrderManager *)sharedInstance;
-- (NSInteger)insert:(Order *)order Error:(NSError **)error;
+- (NSInteger)insert:(Order *)order error:(NSError **)error;
+- (void)update:(Order *)order error:(NSError **)error;
 - (NSMutableDictionary *)getAll;
 @end

@@ -52,7 +52,7 @@ static OrderManager *sharedManager = nil;
     return dict;
 }
 
-- (NSInteger)insert:(Order *)order Error:(NSError **)error {
+- (NSInteger)insert:(Order *)order error:(NSError **)error {
     if (order.clientIdentifier == 0) {
         *error = [[NSError alloc] initWithDomain:@"insertError" code:1000 userInfo:nil];
         return 0;
@@ -65,7 +65,6 @@ static OrderManager *sharedManager = nil;
     
     BOOL result = [database executeUpdate:@"INSERT INTO pedidos (fecha, id_cliente) VALUES (?, ?)",[NSDate date] , [NSNumber numberWithInteger:order.clientIdentifier], nil];
     if (result) {
-        lastRow = (NSInteger)[database lastInsertRowId] ;
         NSArray *allProductIdentifiers = [order.products allKeys];
         for (int i = 0; i < allProductIdentifiers.count; i++) {
             
@@ -93,11 +92,40 @@ static OrderManager *sharedManager = nil;
 }
 
 
-- (void)update:(Order *)order {
+- (void)update:(Order *)order error:(NSError **)error{
     FMDatabase *database = [self getDB];
     [database open];
-    //BOOL result = [database executeUpdate:@"UPDATE pedido_productos set lastName = ?, name = ?, doctor = ?", self.lastName, self.name, [NSNumber numberWithInteger:self.doctor.identifier], nil];
-    [database close];
+    [database beginTransaction];
+    NSInteger lastRow = order.identifier;
     
+    BOOL result = [database executeUpdate:[NSString stringWithFormat:@"Delete from pedido_productos where id_pedido = %i", order.identifier], nil];
+    if (result) {
+        lastRow = order.identifier;
+        NSArray *allProductIdentifiers = [order.products allKeys];
+        for (int i = 0; i < allProductIdentifiers.count; i++) {
+            NSNumber *orderId = [NSNumber numberWithInteger:lastRow];
+            NSNumber *productId = [allProductIdentifiers objectAtIndex:i];
+            NSNumber *quantity = [order.products objectForKey:[allProductIdentifiers objectAtIndex:i]];
+            
+            result = [database executeUpdate:@"INSERT INTO pedido_productos (id_pedido, id_producto, cantidad) VALUES (?, ?, ?)", orderId,productId ,quantity , nil];
+            
+            if (!result) {
+                [database rollback];
+                [database close];
+                *error = [[NSError alloc] initWithDomain:@"updateError" code:1000 userInfo:nil];
+                return;
+            }
+        }
+        if (result) {
+            [database commit];
+        }
+    } else {
+        [database rollback];
+        [database close];
+        *error = [[NSError alloc] initWithDomain:@"updateError" code:1000 userInfo:nil];
+        return ;
+    }
+    
+    [database close];
 }
 @end

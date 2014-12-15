@@ -33,7 +33,7 @@ static ClientManager *sharedManager = nil;
     serverUrl = [serverUrl stringByAppendingString:@"clients.json"];
     self.delegate = delegate;
     __weak typeof(self) weakerSelf = self;
-    dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         
         [weakerSelf makeSyncRequest:serverUrl onSuccess:^(id jsonResult) {
             if (delegate) {

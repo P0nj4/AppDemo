@@ -22,7 +22,8 @@
 - (void)loadImageWithDelegate:(id<ProductDelegate>)delegate {
     self.delegate = delegate;
     __weak typeof(self) weakSelf = self;
-    dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [NSThread sleepForTimeInterval:1];
         NSData *imageData = [NSData dataWithContentsOfURL:weakSelf.imageURL];
         dispatch_async(dispatch_get_main_queue(), ^{
             weakSelf.img = [UIImage imageWithData:imageData];

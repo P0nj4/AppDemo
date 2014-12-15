@@ -14,4 +14,12 @@
     self.clientIdentifier = client.identifier;
 }
 
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        self.products = [[NSMutableDictionary alloc] init];
+    }
+    return self;
+}
+
 @end

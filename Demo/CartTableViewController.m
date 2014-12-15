@@ -10,10 +10,10 @@
 
 #import "CartTableViewController.h"
 
-//entities
+//entities or managers
 #import "ProductManager.h"
+#import "OrderManager.h"
 #import "Product.h"
-#import "Order.h"
 
 //custom views
 #import "LoadingView.h"
@@ -21,8 +21,8 @@
 
 @interface CartTableViewController () <ProductManagerDelegate, ProductCellDelegate>
 @property (nonatomic, strong) NSArray *listOfProducts;
-@property (nonatomic, strong) Order *order;
 @property (nonatomic, strong) UILabel *totalQuantityLabel;
+@property (nonatomic) BOOL isEditMode;
 @end
 
 @implementation CartTableViewController
@@ -51,6 +51,8 @@
     if (!self.order) {
         self.order = [[Order alloc] init];
         self.order.client = self.client;
+    } else {
+        self.isEditMode = YES;
     }
     
 }
@@ -180,7 +182,19 @@
 }
 
 - (void)doneAction {
-#warning guardar en base de datos
+    NSError *error;
+    if (!self.isEditMode) {
+        self.order.clientIdentifier = self.client.identifier;
+        [[OrderManager sharedInstance] insert:self.order error:&error];
+    } else {
+        self.order.clientIdentifier = self.client.identifier;
+        [[OrderManager sharedInstance] update:self.order error:&error];
+    }
+    if (error) {
+        [[[UIAlertView alloc] initWithTitle:@"Oups" message:@"Lo sentimos, hubo un error al guardar el pedido" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+    } else {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 - (void)cancelAction {

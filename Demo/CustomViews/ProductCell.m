@@ -32,12 +32,14 @@
     if (product.img) {
         self.image.image = product.img;
     } else {
+        self.image.hidden = YES;
         [product loadImageWithDelegate:self];
     }
 }
 
 - (void)imageDidLoad {
     self.image.image = _product.img;
+    self.image.hidden = NO;
 }
 
 - (BOOL)textFieldDidChange:(UITextField *)textField {
