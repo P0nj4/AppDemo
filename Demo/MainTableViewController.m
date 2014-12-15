@@ -2,7 +2,7 @@
 //  MainTableViewController.m
 //  Demo
 //
-//  Created by German Pereyra on 12/12/14.
+//  Created by German Pereyra on 12/15/14.
 //  Copyright (c) 2014 German Pereyra. All rights reserved.
 //
 
@@ -36,6 +36,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self.segmented setTitle:NSLocalizedString(@"clients", nil) forSegmentAtIndex:0];
+    [self.segmented setTitle:NSLocalizedString(@"orders", nil) forSegmentAtIndex:1];
+    self.title = NSLocalizedString(@"MainTitle", nil);
     
     if (![[ClientManager sharedInstance] allClients] || [[[ClientManager sharedInstance] allClients] count] == 0) {
         [LoadingView loadingShowOnView:self.view animated:NO frame:self.view.bounds];

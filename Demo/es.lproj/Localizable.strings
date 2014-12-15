@@ -1,0 +1,19 @@
+/*
+ Localizable.strings
+ Demo
+ 
+ Created by German Pereyra on 12/15/14.
+ Copyright (c) 2014 German Pereyra. All rights reserved.
+ */
+
+//Errors
+"genericServerError" = "Oups, ocurrió un error, chequee su conexión y vuelva a intentar";
+"errorSavingOrder" = "Lo sentimos, hubo un error al guardar el pedido";
+
+"retry" = "Reintentar";
+"done" = "Aceptar";
+"cancel" = "Cancelar";
+"clients" = "Clientes";
+"orders" = "Pedidos";
+"MainTitle" = "Principal";
+"ProductsTitle" = "Productos";

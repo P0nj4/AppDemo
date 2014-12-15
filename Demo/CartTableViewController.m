@@ -2,7 +2,7 @@
 //  CartTableViewController.m
 //  Demo
 //
-//  Created by German Pereyra on 12/12/14.
+//  Created by German Pereyra on 12/15/14.
 //  Copyright (c) 2014 German Pereyra. All rights reserved.
 //
 
@@ -42,10 +42,12 @@
         self.listOfProducts = [[ProductManager sharedInstance].allProducts allValues];
     }
     
-    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStylePlain target:self action:@selector(doneAction)];
+    self.title = NSLocalizedString(@"ProductsTitle", nil);
+    
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"done", nil) style:UIBarButtonItemStylePlain target:self action:@selector(doneAction)];
     self.navigationItem.rightBarButtonItem = doneButton;
 
-    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancelAction)];
+    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"cancel", nil) style:UIBarButtonItemStylePlain target:self action:@selector(cancelAction)];
     self.navigationItem.leftBarButtonItem = cancelButton;
     
     if (!self.order) {
@@ -195,7 +197,7 @@
         [[OrderManager sharedInstance] update:self.order error:&error];
     }
     if (error) {
-        [[[UIAlertView alloc] initWithTitle:@"Oups" message:@"Lo sentimos, hubo un error al guardar el pedido" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        [[[UIAlertView alloc] initWithTitle:@"Oups" message:NSLocalizedString(@"errorSavingOrder", nil) delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     } else {
         [self.navigationController popViewControllerAnimated:YES];
     }
