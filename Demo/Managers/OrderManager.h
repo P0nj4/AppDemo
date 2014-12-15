@@ -7,7 +7,10 @@
 //
 
 #import "DataBaseManager.h"
+#import "Order.h"
 
 @interface OrderManager : DataBaseManager
-
++ (OrderManager *)sharedInstance;
+- (NSInteger)insert:(Order *)order Error:(NSError **)error;
+- (NSMutableDictionary *)getAll;
 @end

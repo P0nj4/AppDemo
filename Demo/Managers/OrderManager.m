@@ -7,14 +7,23 @@
 //
 
 #import "OrderManager.h"
-#import "Order.h"
+
+static OrderManager *sharedManager = nil;
 
 @implementation OrderManager
++ (OrderManager *)sharedInstance {
+    @synchronized(self) {
+        if (sharedManager == nil) {
+            sharedManager = [[self alloc] init]; // assignment not done here
+        }
+    }
+    return sharedManager;
+}
 
 - (NSMutableDictionary *)getAll {
     FMDatabase *database = [self getDB];
     [database open];
-    FMResultSet *results = [database executeQuery:@"SELECT p.id_cliente, p.fecha, p.* from pedidos p inner join pedido_productos pp on (pp.id_pedido = p.id)", nil];
+    FMResultSet *results = [database executeQuery:@"SELECT * from pedidos p inner join pedido_productos pp on (pp.id_pedido = p.id)", nil];
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
     Order *order = nil;
     while([results next]) {
@@ -43,24 +52,52 @@
     return dict;
 }
 
-- (void)insert:(Order *)order Error:(NSError **)error {
-    
-    if (order.clientIdentifier == 0)
-        return;
+- (NSInteger)insert:(Order *)order Error:(NSError **)error {
+    if (order.clientIdentifier == 0) {
+        *error = [[NSError alloc] initWithDomain:@"insertError" code:1000 userInfo:nil];
+        return 0;
+    }
     
     FMDatabase *database = [self getDB];
     [database open];
+    [database beginTransaction];
+    NSInteger lastRow;
     
     BOOL result = [database executeUpdate:@"INSERT INTO pedidos (fecha, id_cliente) VALUES (?, ?)",[NSDate date] , [NSNumber numberWithInteger:order.clientIdentifier], nil];
-    if (!result) {
+    if (result) {
+        lastRow = (NSInteger)[database lastInsertRowId] ;
+        NSArray *allProductIdentifiers = [order.products allKeys];
+        for (int i = 0; i < allProductIdentifiers.count; i++) {
+            
+            result = [database executeUpdate:@"INSERT INTO pedido_productos (id_pedido, id_producto, cantidad) VALUES (?, ?, ?)",[NSNumber numberWithInteger:lastRow], [allProductIdentifiers objectAtIndex:i], [order.products objectForKey:[allProductIdentifiers objectAtIndex:i]], nil];
+            
+            if (!result) {
+                [database rollback];
+                [database close];
+                *error = [[NSError alloc] initWithDomain:@"insertError" code:1000 userInfo:nil];
+                return 0;
+            }
+        }
+        if (result) {
+            [database commit];
+        }
+    } else {
+        [database rollback];
         [database close];
-        @throw [[NSException alloc] initWithName:kGenericError reason:@"Enable to save the data" userInfo:nil];
+        *error = [[NSError alloc] initWithDomain:@"insertError" code:1000 userInfo:nil];
+        return 0;
     }
     
-    NSInteger lastRow = (NSInteger)[database lastInsertRowId] ;
-    self.identifier = (lastRow);
+    [database close];
+    return lastRow;
+}
+
+
+- (void)update:(Order *)order {
+    FMDatabase *database = [self getDB];
+    [database open];
+    //BOOL result = [database executeUpdate:@"UPDATE pedido_productos set lastName = ?, name = ?, doctor = ?", self.lastName, self.name, [NSNumber numberWithInteger:self.doctor.identifier], nil];
     [database close];
     
-
 }
 @end

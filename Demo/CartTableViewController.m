@@ -21,7 +21,7 @@
 
 @interface CartTableViewController () <ProductManagerDelegate, ProductCellDelegate>
 @property (nonatomic, strong) NSArray *listOfProducts;
-@property (nonatomic, strong) NSMutableDictionary *orders;
+@property (nonatomic, strong) Order *order;
 @property (nonatomic, strong) UILabel *totalQuantityLabel;
 @end
 
@@ -47,6 +47,11 @@
 
     UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancelAction)];
     self.navigationItem.leftBarButtonItem = cancelButton;
+    
+    if (!self.order) {
+        self.order = [[Order alloc] init];
+        self.order.client = self.client;
+    }
     
 }
 
@@ -87,9 +92,9 @@
         ((ProductCell *)cell).product.delegate = nil;
     }
     [((ProductCell *)cell) setProduct:prod];
-    Order *ordAux = [self.orders objectForKey:[NSNumber numberWithInteger:prod.identifier]];
-    if (ordAux) {
-        ((ProductCell *)cell).quantityTextField.text = [NSString stringWithFormat:@"%ld",(long) ordAux.quantity];
+    NSNumber *quantity = [self.order.products objectForKey:[NSNumber numberWithInteger:prod.identifier]];
+    if (quantity) {
+        ((ProductCell *)cell).quantityTextField.text = [NSString stringWithFormat:@"%ld",(long) [quantity integerValue]];
     } else {
         ((ProductCell *)cell).quantityTextField.text = @"0";
     }
@@ -153,28 +158,20 @@
 
 #pragma mark - ProductCellDelegate
 - (void)productCellDidChange:(NSInteger)quantity ForProduct:(Product *)product{
-    if (!self.orders) {
-        self.orders = [[NSMutableDictionary alloc] init];
-    }
-    Order *orderAux;
-    orderAux = [self.orders objectForKey:[NSNumber numberWithInteger:product.identifier]];
-    if (!orderAux)
-        orderAux = [[Order alloc] init];
-    
-    orderAux.product = product;
-    orderAux.client = self.client;
-    orderAux.quantity = quantity;
-    [self.orders setObject:orderAux forKey:[NSNumber numberWithInteger:product.identifier]];
+    [self.order.products setObject:[NSNumber numberWithInteger:quantity] forKey:[NSNumber numberWithInteger:product.identifier]];
     [self updateTotalAmount];
 }
 
 #pragma mark - Private methods
 - (void)updateTotalAmount {
-    if (self.orders && self.orders.count > 0) {
-        NSArray *allOrders = [self.orders allValues];
+    if (self.order && self.order.products > 0) {
         double total = 0;
-        for (Order *oAux in allOrders) {
-            total += oAux.quantity * oAux.product.price;
+        NSArray *allProductIdsOfTheOrder = [self.order.products allKeys];
+        Product *prodAux;
+        for (int i = 0; i < allProductIdsOfTheOrder.count; i++) {
+            prodAux = [[ProductManager sharedInstance].allProducts objectForKey:[allProductIdsOfTheOrder objectAtIndex:i]];
+            NSNumber *quantity = [self.order.products objectForKey:[allProductIdsOfTheOrder objectAtIndex:i]];
+            total += [quantity integerValue] * prodAux.price;
         }
         NSLog(@"%f",total);
         self.totalQuantityLabel.text = [NSString stringWithFormat:@"$%.2f", total];
@@ -187,7 +184,6 @@
 }
 
 - (void)cancelAction {
-    self.orders = nil;
     [self.navigationController popViewControllerAnimated:YES];
 }
 

@@ -10,4 +10,8 @@
 
 @implementation Order
 
+- (void)setClient:(Client *)client {
+    self.clientIdentifier = client.identifier;
+}
+
 @end
