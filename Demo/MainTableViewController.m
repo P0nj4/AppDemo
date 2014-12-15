@@ -18,6 +18,7 @@
 //custom views
 #import "LoadingView.h"
 #import "ClientCell.h"
+#import "OrderCell.h"
 
 @interface MainTableViewController () <ClientManagerDelegate, UIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmented;
@@ -83,15 +84,11 @@
         }
         return cell;
     } else {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"OrderCell"];
+        OrderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"OrderCell"];
         if (!cell) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"OrderCell"];
+            [tableView registerNib:[UINib nibWithNibName:@"OrderCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"OrderCell"];
+            cell = [tableView dequeueReusableCellWithIdentifier:@"OrderCell"];
         }
-        Order *oAux = [self.listOfOrders objectAtIndex:indexPath.row];
-        NSDateFormatter *fomatter = [[NSDateFormatter alloc] init];
-        [fomatter setDateFormat:@"dd/MM/yyyy hh:mm:ss"];
-        cell.detailTextLabel.text = [fomatter stringFromDate:oAux.date];
-        cell.textLabel.text = oAux.description; //[NSString stringWithFormat:@"%i",oAux.clientIdentifier];
         return cell;
     }
 }
@@ -102,11 +99,18 @@
         Client *client = [self.listOfClients objectAtIndex:indexPath.row];
         ClientCell *clientCell = (ClientCell *)cell;
         [clientCell setClient:client];
+    } else {
+        OrderCell *orderCell = (OrderCell *)cell;
+        Order *oAux = [self.listOfOrders objectAtIndex:indexPath.row];
+        if (orderCell.order) {
+            orderCell.order.delegate = nil;
+        }
+        [orderCell setOrder:oAux];
     }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-        [self performSegueWithIdentifier:@"addProducts" sender:nil];
+    [self performSegueWithIdentifier:@"addProducts" sender:nil];
 }
 
 #pragma mark - Navigation

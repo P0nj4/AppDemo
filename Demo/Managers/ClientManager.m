@@ -59,30 +59,15 @@ static ClientManager *sharedManager = nil;
                     [[weakerSelf delegate] didLoadClients:error];
             });
         }];
-        
     });
 }
 
-- (void)loadClientById:(NSInteger)identifier delegate:(id<ClientManagerDelegate>)delegate {
-    NSNumber *numIdentifier = [NSNumber numberWithInteger:identifier];
-    if (self.allClients && [self.allClients objectForKey:numIdentifier])
-        [self.allClients setObject:nil forKey:numIdentifier];
-    
+- (Client *)loadSyncClientById:(NSInteger)identifier {
     NSString *serverUrl = kServerURL;
     serverUrl = [serverUrl stringByAppendingString:[NSString stringWithFormat:@"clientById.php?id=%ld", (long)identifier]];
-    [self makeRequest:serverUrl onSuccess:^(id jsonResult) {
-        if (delegate) {
-            NSDictionary *result = jsonResult;
-            Client *cliAux = [[Client alloc] init];
-            [cliAux setAttributesFromJson:result];
-            [self.allClients setObject:cliAux forKey:numIdentifier];
-            if ([delegate respondsToSelector:@selector(didLoadClientById:)])
-                [delegate didLoadClientById:nil];
-        }
-    } onError:^(NSError *error) {
-        if ([delegate respondsToSelector:@selector(didLoadClientById:)])
-            [[self delegate] didLoadClientById:error];
-    }];
-    
+    NSDictionary *result = [self makeRequest:serverUrl onSuccess:nil onError:nil];
+    Client *cliAux = [[Client alloc] init];
+    [cliAux setAttributesFromJson:result];
+    return cliAux;
 }
 @end

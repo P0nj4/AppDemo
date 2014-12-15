@@ -36,6 +36,8 @@
 		442924D81A3A83AC0059F280 /* MainTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 442924D71A3A83AC0059F280 /* MainTableViewController.m */; };
 		442924DE1A3A84C70059F280 /* LoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 442924DD1A3A84C70059F280 /* LoadingView.m */; };
 		44F7824A1A3F02A60000A246 /* OrderManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 44F782491A3F02A60000A246 /* OrderManager.m */; };
+		44F7824F1A3F5B4E0000A246 /* OrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 44F7824D1A3F5B4E0000A246 /* OrderCell.m */; };
+		44F782501A3F5B4E0000A246 /* OrderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 44F7824E1A3F5B4E0000A246 /* OrderCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -107,6 +109,9 @@
 		442924DD1A3A84C70059F280 /* LoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingView.m; sourceTree = "<group>"; };
 		44F782481A3F02A60000A246 /* OrderManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderManager.h; sourceTree = "<group>"; };
 		44F782491A3F02A60000A246 /* OrderManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderManager.m; sourceTree = "<group>"; };
+		44F7824C1A3F5B4E0000A246 /* OrderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderCell.h; sourceTree = "<group>"; };
+		44F7824D1A3F5B4E0000A246 /* OrderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderCell.m; sourceTree = "<group>"; };
+		44F7824E1A3F5B4E0000A246 /* OrderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +142,9 @@
 				4406C91B1A3B383B00162D07 /* ProductCell.h */,
 				4406C91C1A3B383B00162D07 /* ProductCell.m */,
 				4406C91D1A3B383B00162D07 /* ProductCell.xib */,
+				44F7824C1A3F5B4E0000A246 /* OrderCell.h */,
+				44F7824D1A3F5B4E0000A246 /* OrderCell.m */,
+				44F7824E1A3F5B4E0000A246 /* OrderCell.xib */,
 			);
 			name = CustomTableViewCells;
 			sourceTree = "<group>";
@@ -359,6 +367,7 @@
 			files = (
 				442924971A3A658C0059F280 /* Main.storyboard in Resources */,
 				4406C93A1A3B7D8400162D07 /* db.sql in Resources */,
+				44F782501A3F5B4E0000A246 /* OrderCell.xib in Resources */,
 				442924CA1A3A75D00059F280 /* Localizable.strings in Resources */,
 				4406C91F1A3B383B00162D07 /* ProductCell.xib in Resources */,
 				4429249C1A3A658C0059F280 /* LaunchScreen.xib in Resources */,
@@ -390,6 +399,7 @@
 				4406C9381A3B7A5B00162D07 /* FMResultSet.m in Sources */,
 				4406C9221A3B76BF00162D07 /* DataBaseManager.m in Sources */,
 				4406C91E1A3B383B00162D07 /* ProductCell.m in Sources */,
+				44F7824F1A3F5B4E0000A246 /* OrderCell.m in Sources */,
 				4406C9351A3B7A5B00162D07 /* FMDatabaseAdditions.m in Sources */,
 				4406C91A1A3B33D500162D07 /* CartTableViewController.m in Sources */,
 				4406C9051A3B275800162D07 /* ClientCell.m in Sources */,

@@ -18,6 +18,6 @@
 @interface ClientManager : ServerBaseManager
 @property (nonatomic, strong) NSMutableDictionary *allClients;
 - (void)loadClientsWithDelegate:(id<ClientManagerDelegate>)delegate;
-- (void)loadClientById:(NSInteger)identifier delegate:(id<ClientManagerDelegate>)delegate;
+- (Client *)loadSyncClientById:(NSInteger)identifier;
 + (ClientManager *)sharedInstance;
 @end
