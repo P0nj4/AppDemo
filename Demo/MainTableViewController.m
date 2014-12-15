@@ -34,6 +34,15 @@
     _listOfClients= [listOfClients sortedArrayUsingDescriptors:@[sort]];
 }
 
+- (void)setListOfOrders:(NSArray *)listOfOrders {
+    _listOfOrders = [listOfOrders sortedArrayUsingComparator: ^(id a, id b) {
+        NSDate *d1 = ((Order *)a).date;
+        NSDate *d2 = ((Order *)b).date;
+        return [d2 compare: d1];
+    }];
+
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
