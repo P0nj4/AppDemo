@@ -22,4 +22,16 @@
     return self;
 }
 
+- (NSString *)description {
+    NSMutableString *str = [[NSMutableString alloc] initWithString:@""];
+    NSArray *allKeys = self.products.allKeys;
+    NSNumber *quantity;
+    for (NSNumber *prod in allKeys) {
+        quantity = [self.products objectForKey:prod];
+        [str appendFormat:@"(%i) - ProdId %i, ", [quantity intValue], [prod intValue]];
+    }
+    
+    return str;
+}
+
 @end

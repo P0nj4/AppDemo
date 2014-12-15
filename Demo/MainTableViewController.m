@@ -36,17 +36,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
     if (![[ClientManager sharedInstance] allClients] || [[[ClientManager sharedInstance] allClients] count] == 0) {
         [LoadingView loadingShowOnView:self.view animated:NO frame:self.view.bounds];
         [[ClientManager sharedInstance] loadClientsWithDelegate:self];
     } else
         self.listOfClients = [[[ClientManager sharedInstance] allClients] allValues];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    if(self.segmented.selectedSegmentIndex == 1) {
+        [self.tableView reloadData];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -91,7 +91,7 @@
         NSDateFormatter *fomatter = [[NSDateFormatter alloc] init];
         [fomatter setDateFormat:@"dd/MM/yyyy hh:mm:ss"];
         cell.detailTextLabel.text = [fomatter stringFromDate:oAux.date];
-        cell.textLabel.text = [NSString stringWithFormat:@"%i",oAux.clientIdentifier];
+        cell.textLabel.text = oAux.description; //[NSString stringWithFormat:@"%i",oAux.clientIdentifier];
         return cell;
     }
 }
@@ -106,9 +106,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.segmented.selectedSegmentIndex == 0) {
         [self performSegueWithIdentifier:@"addProducts" sender:nil];
-    }
 }
 
 #pragma mark - Navigation
@@ -116,12 +114,17 @@
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"addProducts"]) {
-        
         NSIndexPath *path = [self.tableView indexPathForSelectedRow];
-        Client *client = [self.listOfClients objectAtIndex:path.row];
-        
-        CartTableViewController *vc = [segue destinationViewController];
-        [vc setClient:client];
+        if (self.segmented.selectedSegmentIndex == 0) {
+            Client *client = [self.listOfClients objectAtIndex:path.row];
+            
+            CartTableViewController *vc = [segue destinationViewController];
+            [vc setClient:client];
+        } else {
+            Order *order = [self.listOfOrders objectAtIndex:path.row];
+            CartTableViewController *vc = [segue destinationViewController];
+            [vc setOrder:order];
+        }
     }
     
 }

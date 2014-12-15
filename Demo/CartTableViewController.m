@@ -160,7 +160,12 @@
 
 #pragma mark - ProductCellDelegate
 - (void)productCellDidChange:(NSInteger)quantity ForProduct:(Product *)product{
-    [self.order.products setObject:[NSNumber numberWithInteger:quantity] forKey:[NSNumber numberWithInteger:product.identifier]];
+    if (quantity > 0) {
+        [self.order.products setObject:[NSNumber numberWithInteger:quantity] forKey:[NSNumber numberWithInteger:product.identifier]];
+    } else {
+        [self.order.products removeObjectForKey:[NSNumber numberWithInteger:product.identifier]];
+    }
+    
     [self updateTotalAmount];
 }
 
@@ -187,7 +192,6 @@
         self.order.clientIdentifier = self.client.identifier;
         [[OrderManager sharedInstance] insert:self.order error:&error];
     } else {
-        self.order.clientIdentifier = self.client.identifier;
         [[OrderManager sharedInstance] update:self.order error:&error];
     }
     if (error) {
